@@ -996,7 +996,7 @@ en uso o no y el código de la taquilla. ::
   
     type LockerMap = Map.Map Int (LockerState, Code)
 
-Bastante simple. Hemo creado un nuevo tipo de dato para representar si una
+Bastante simple. Hemos creado un nuevo tipo de dato para representar si una
 taquilla está libre o no, y hemos creado un sinónimo para representar el
 código de una taquilla. También creado otro sinónimo para el tipo que asocia
 los los números de las taquillas con las duplas de estado y código. Ahora,
@@ -1061,7 +1061,7 @@ Estructuras de datos recursivas
    :align: left
    :alt: Hombre cool
 
-Como ya hemos visto, un costructor de un tipo de dato algebraico puede tener
+Como ya hemos visto, un constructor de un tipo de dato algebraico puede tener
 (o no tener) varios campos y cada uno de estos debe ser un tipo concreto.
 Teniendo esto en cuenta, podemos crear tipos cuyos campos de constructor sean
 el propio tipo. De esta forma, podemos crear estructuras de datos recursivas,
@@ -1069,7 +1069,7 @@ en el que un valor de un cierto tipo contenga valores de ese mismo tipo, el
 cual seguirá conteniendo valores del mismo tipo y así sucesivamente.
 
 Piensa en la lista ``[5]``. Es lo mismo que ``5:[]``. A la izquierda del ``:``
-hay un valore, y a la derecha hay una lista. En este caso, una lista vacía. 
+hay un valor, y a la derecha hay una lista. En este caso, una lista vacía. 
 ¿Qué pasaría con la lista ``[4,5]``? Bueno, es lo mismo que ``4:(5:[])``. Si
 miramos el primer ``:``, vemos que también tiene un elemento a su izquierda y
 una lista a su derecha ``(5:[])``.  Lo mismo sucede para la lista
@@ -1111,7 +1111,7 @@ Empty)`` es como ``4:(5:[])``.
 
 Podemos definir funciones que automáticamente sean infijas si las nombramos
 únicamente con caracteres especiales. Podemos hacer lo mismo con los
-constructores, ya que son simplemente funciones que devuelve un tipo de dato
+constructores, ya que son simplemente funciones que devuelven un tipo de dato
 concreto. Mira esto: ::
 
     infixr 5 :-:  
@@ -1119,9 +1119,9 @@ concreto. Mira esto: ::
 
 Antes de nada, vemos que hay una nueva construcción sintáctica, una
 declaración infija. Cuando definimos funciones como operadores, podemos usar
-esta cosntrucción para darles un determinado comportamiento (aunque no estamos
+esta construcción para darles un determinado comportamiento (aunque no estamos
 obligados a hacerlo). De esta forma definimos el orden de precedencia de un
-operador y si asociativo por la izquierda o por la derecha. Por ejemplo, ``*``
+operador y si es asociativo por la izquierda o por la derecha. Por ejemplo, ``*``
 es ``infixl 7 *`` y ``+`` es ``infixl 6 +``. Esto siginifica que ambos son
 asociativos por la izquierda de forma que ``(4 * 3 * 2)`` es ``(4 * 3) * 2)``
 pero ``*`` tiene un orden de precedencia mayor que ``+``, por lo que 
@@ -1136,7 +1136,7 @@ de `` Cons a (List a)``. Ahora podemos escribir las listas así: ::
     ghci> 100 :-: a  
     (:-:) 100 ((:-:) 3 ((:-:) 4 ((:-:) 5 Empty)))
 
-Haskell serguirá mostrando el cosntructor como una función prefija cuando
+Haskell seguirá mostrando el constructor como una función prefija cuando
 derivemos ``Show``, por este motivo aparecen los poréntesis alrededor del
 constructor (recuerda que ``4 + 3`` es igual que ``(+) 4 3``).
 
@@ -1165,7 +1165,7 @@ Y así es como funciona: ::
 Bien. Si te apetece puedes implementar todas las funciones que operan con
 listas con nuestro tipo de listas.
 
-Fíjate que hemos utilizado un ajuste de patrón ``(x :-: xs)``. Esto función
+Fíjate que hemos utilizado un ajuste de patrón ``(x :-: xs)``. Esto funciona
 ya que el ajuste de patrones en realidad funciona ajustando constructores.
 Podemos ajustar un patrón ``:-:`` porque es un constructor de nuesto tipo de
 la misma forma que ``:`` es un constructor de las listas estándar. Lo mismo
@@ -1210,19 +1210,19 @@ Vale. En lugar de construir manualmente un árbol, vamos a crear una función
 que tome un elemento y un árbol e inserte dicho elemento en su posición
 adecuada dentro del árbol. Hacemos esto comparando el elemento que queremos
 insertar con la raíz del árbol y si es menor, vamos a la izquierda y si no
-a la derecha. Hacemos lo mismo para coda nodo siguiente hasta que alcanzemos
-un árbol vacío. Cuando lo hagamos simplemente insertamos el elmento en
+a la derecha. Hacemos lo mismo para cada nodo siguiente hasta que alcanzemos
+un árbol vacío. Cuando lo hagamos simplemente insertamos el elemento en
 lugar del árbol vacío. 
 
 En lenguajes como *C*, realizamos esta tarea modificando los punteros y
 valores del árbol. En Haskell, no podemos modificar nuestro árboles, así que
 tenemos que crear un nuevo sub-árbol cada vez que decidamos si vamos a la
-derecha o a la izquierda y al final la función de inserción devolver un
-árbol complentamente nuevo, ya que Haskell no tiene el concepto de puntero.
-Así pues la declaración de tipo de nuestra función será alfgo como ``a ->
+derecha o a la izquierda y al final la función de inserción devolverá un
+árbol completamente nuevo, ya que Haskell no tiene el concepto de puntero.
+Así pues la declaración de tipo de nuestra función será algo como ``a ->
 Tree a - > Tree a``. Toma un elemento y un árbol y devuelve un nuevo árbol que
-posee en su interior dicho elemento. Puede parecer ineficienciente pero la
-evaluación perezosa de Hasekell ya se encarga de ello.
+posee en su interior dicho elemento. Puede parecer ineficiente pero la
+evaluación perezosa de Haskell ya se encarga de ello.
 
 Aqui tienes dos funciones. Una de ellas es una función auxiliar para crear un
 árbol unitario (que solo contiene un elemento) y la otra es una función que
@@ -1238,7 +1238,7 @@ inserta elementos en un árbol. ::
         | x < a  = Node a (treeInsert x left) right  
         | x > a  = Node a left (treeInsert x right)
 
-La función ``singleton`` es forma rápida de crear un árbol que contenga un
+La función ``singleton`` es la forma rápida de crear un árbol que contenga un
 elemento y dos sub-árboles vacios. En la función de inserción, tenemos como
 primer patrón el caso base. Si hemos alcanzado un sub-árbol vacio, esto
 significa que estamos donde queríamos y en lugar de un árbol vacío, queremos
@@ -1271,7 +1271,7 @@ Si es mayor, comprobamos el sub-árbol derecho. ::
         | x < a  = treeElem x left  
         | x > a  = treeElem x right
 
-¡Vamos a divertirnos con nuestro árboles! En lugar de contruir manualmente un
+¡Vamos a divertirnos con nuestros árboles! En lugar de construir manualmente un
 árbol (aunque podríamos), usaremos un pliegue para construir un árbol a partir
 de una lista. Recuerda, casi cualquier cosa que recorra una lista elemento a
 elemento y devuelve alguna especie de valor puede ser implementado con un
@@ -1305,9 +1305,9 @@ Vamos que comprobar la pertencia de un elemento a un árbol funciona
 perfectamente. Genial.
 
 Como puede ver los tipos de datos algebraicos en Hasekll son un concepto muy
-intersante a la vez que pontentes. Podemos utilizarlos desde para representar
-valores booleanos hasta enumeraciónes de los días de la semana, e incluso 
-árboles binarios de búsquedas.
+intersante a la vez que potentes. Podemos utilizarlos desde para representar
+valores booleanos hasta enumeraciones de los días de la semana, e incluso 
+árboles binarios de búsqueda.
 
 
 Clases de tipos paso a paso (2ª parte)
@@ -1400,7 +1400,7 @@ tipos tengan una instancia para cierta clase de tipos. Cuando estabamos
 definiendo ``Eq`` escribimos ``class Eq a where`` y dijimos que ``a``
 representaría el tipo que hiciéramos instancia después. Lo podemos ver
 claramente ahora, ya que cuando estamos escribiendo una instancia, escribrimos
-``instance Eq TrafficLight where``. Hemo remplazado la ``a`` por el tipo
+``instance Eq TrafficLight where``. Hemosremplazado la ``a`` por el tipo
 actual.
 
 Como ``==`` fue definido en la definición de clase en términos de ``/=`` y
@@ -1416,7 +1416,7 @@ sobreescribir o bien ``==`` o ``/=``. Si ``Eq`` hubiese sido definido como: ::
         (/=) :: a -> a -> Bool
 
 Tendríamos que haber implementado ambas funciones a la hora de crear una
-instancia, ya que Hasekell sabría como están relacionadas esas funciones.
+instancia, ya que Haskell sabría como están relacionadas esas funciones.
 De esta forma, la definición completa mínima serían ambas, ``==`` y ``/=``.
 
 Como has visto hemos implementado ``==`` usando ajuste de patrones. Como hay
@@ -1464,8 +1464,8 @@ where``, solo que decimos que nuestro tipo ``a`` debe ser una instancia de
 ``Eq``. Basicamente decimos que hay que crear la instancia ``Eq`` de un tipo
 antes de que éste forme parte forme parte de la clase ``Num``. Antes de que un
 tipo se pueda considerar un número, tiene sentido que podamos determinar si
-los valores de un tipo puede sen equiparados o no. Esto es todo lo que hay que
-saber de las subclases ya que simplemente son restriscciones de clase dentro
+los valores de un tipo puede ser equiparados o no. Esto es todo lo que hay que
+saber de las subclases ya que simplemente son restricciones de clase dentro
 de la definición de una clase. Cuando definamos funciones en la declaración
 de una clase o en la definición de una instancia, podemos asumir que ``a`` es
 parte de la clase ``Eq`` así que podemos usar ``==`` con los valores de ese
@@ -1606,7 +1606,7 @@ que las listas no vacías tienen un valor verdadero. ::
 Fíjate como hemos puesto un parámetro de tipo dentro para hacer de la lista un
 tipo concreto, aunque no suponemos nada acerca de lo que contiene la lista. 
 Qué más... Mmmm... ¡Ya se! ``Bool`` también puede contener valores verdaderos
-y falos y es bastante obvio cual es cual. ::
+y falsos y es bastante obvio cual es cual. ::
 
     instance YesNo Bool where  
         yesno = id
@@ -1733,7 +1733,7 @@ toma una función de un tipo a otro y un funtor aplicado a un tipo y devuelve
 otro funtor aplicado con el otro tipo.
 
 Si esto te suena un poco confuso, no te preocupes. Lo verás todo más claro
-ahora cuando mostremos un cuantos ejemplos. Mmm... esta declaración de tipo
+ahora cuando mostremos unos cuantos ejemplos. Mmm... esta declaración de tipo
 me recuerda a algo. Si no sabes cual es el tipo de ``map``, es este: ``map ::
 (a -> b) -> [a] -> [b]``.
 
@@ -1762,16 +1762,16 @@ resultado cuando las usamos con listas. ::
     [2,4,6]
     
 ¿Qué pasa cuando realizamos ``map`` o ``fmap`` sobre listas vacías? Bien,
-desde luego obenemos una lista vacía. Simplemente convierte una lista vacía
+desde luego obtenemos una lista vacía. Simplemente convierte una lista vacía
 con el tipo ``[a]`` a una lista vacía con el tipo ``[b]``.
 
 Los tipos que pueden actuar como una caja pueden ser funtores. Puede pensar
 en una lista como una caja que tiene un número ilimitado de pequeños
-compartimientos y puden estar todos vacíos, o pueden estár algunos llenos.
+compartimientos y pueden estar todos vacíos, o pueden estár algunos llenos.
 Asi que, ¿Qué más tiene la propiedad de comportarse como una caja? Por
 ejemplo, el tipo ``Maybe a``. De algún modo, es como una caja que puede o bien
 no contener nada, en cuyo caso su valor será ``Nothing``, o puede contener
-algo, como ``"HAHA"``, en cuyo caso su valor ser`á ``Just "HAHA"``. Aquí
+algo, como ``"HAHA"``, en cuyo caso su valor será ``Just "HAHA"``. Aquí
 tienes como ``Maybe`` es un funtor: ::
 
     instance Functor Maybe where  
@@ -1837,15 +1837,15 @@ Aquí tienes como el tipo ``Either a`` es un funtor en las librerías estándar.
         fmap f (Right x) = Right (f x)  
         fmap f (Left x) = Left x
 
-Bueno, bueno ¿Qué hemos hecho aquí? Pudes ver como hemos creado una instancia
-para ``Either a`` en lugar de para solo ``Either``. Esto es así porque`
+Bueno, bueno ¿Qué hemos hecho aquí? Puedes ver como hemos creado una instancia
+para ``Either a`` en lugar de para solo ``Either``. Esto es así porque 
 ``Either a`` es un constructor de tipos que toma un parámetro, mientras que
 ``Either`` toma dos. Si ``fmap`` fuese específicamente para ``Either a``
 entonces su declaración de tipo sería ``(b -> c) -> Either a b -> Either a c``
 ya que es lo mismo que ``b -> c) -> (Either a) b -> (Either a) c``. En la
 implementación, mapeamos en el caso del constructor de tipos ``Right``, pero
 no lo hacemos para el caso de ``Left``. ¿Por qué? Bueno, si volvemos atrás 
-para ver como se define el tipo ``Either a b``, varíamos algo como: ::
+para ver como se define el tipo ``Either a b``, veríamos algo como: ::
 
     data Either a b = Left a | Right b  
 
@@ -1874,7 +1874,7 @@ el tipo ``Map k v'``.
 ¡Trata de imaginarte como se crea la instancia de ``Map k`` para ``Functor``
 tú mismo!
 
-Con la clase de tipos ``Functor`` hemos visto como las clases de tipos puden
+Con la clase de tipos ``Functor`` hemos visto como las clases de tipos pueden
 representar conceptos de orden superior interesantes. También hemos tenido un
 poco de práctica aplicando parcialmente tipos y creando instancias. En uno de
 los siguientes capítulos veremos algunas de las leyes que se aplican
@@ -1912,7 +1912,7 @@ sección, definiremos formalmente como los tipos son aplicados a los
 constructores de tipos, de la misma definiremos formalmente como los valores
 son aplicados a las funciones utilizando declaraciones de tipo. **No
 necesitas leer esta sección para continuar con tu búsqueda de la sabiduría
-sobre Haskell** y no consigues entenderlo, no te preocupes. Sin embargo,
+sobre Haskell** y si no consigues entenderlo, no te preocupes. Sin embargo,
 si lo haces conseguiras un conocimiento profundo del sistema de tipos.
 
 Así que, valores como ``3``, ``"YEAH"`` o ``takeWhile`` (las funciones
@@ -1950,7 +1950,7 @@ el parámetro de tipo a ``Maybe`` y ver cual es su familia. ::
     ghci> :k Maybe Int  
     Maybe Int :: *
 
-¡Justo como esperaba! Hemo pasado un parámetro de tipo a ``Maybe`` y hemos
+¡Justo como esperaba! Hemos pasado un parámetro de tipo a ``Maybe`` y hemos
 obtenido un tipo concreto (esto es lo que significa ``* -> *``). Un símil 
 (aunque no equivalente, los tipos y las familias son dos cosas distintas)
 sería si hicieramos ``:t isUpper`` y ``:t isUpper 'A'``. ``isUpper`` tiene el
